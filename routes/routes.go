@@ -9,5 +9,6 @@ func HandleRoutesRequests() {
 	r := gin.Default()
 	r.GET("/students", controllers.ShowAllStudents)
 	r.GET("/students/:id", controllers.GetSingleStudent)
+	r.POST("students", controllers.CreateNewStudent)
 	r.Run(":5000")
 }
