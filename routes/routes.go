@@ -10,5 +10,6 @@ func HandleRoutesRequests() {
 	r.GET("/students", controllers.ShowAllStudents)
 	r.GET("/students/:id", controllers.GetSingleStudent)
 	r.POST("students", controllers.CreateNewStudent)
+	r.DELETE("/students/:id", controllers.DeleteStudent)
 	r.Run(":5000")
 }
