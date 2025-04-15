@@ -20,6 +20,15 @@ func GetSingleStudent(c *gin.Context) {
 
 	database.DB.First(&student, id)
 
+	if student.ID == 0 {
+		c.JSON(http.StatusNotFound, gin.H{
+			"message": "Student not found",
+			"status":  http.StatusNotFound,
+		})
+
+		return
+	}
+
 	c.JSON(200, student)
 }
 
