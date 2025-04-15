@@ -9,9 +9,9 @@ import (
 )
 
 func ShowAllStudents(c *gin.Context) {
-	c.JSON(200, gin.H{
-		"data": models.StudentsList,
-	})
+	var students []models.Student
+	database.DB.Find(&students)
+	c.JSON(200, students)
 }
 
 func GetSingleStudent(c *gin.Context) {
