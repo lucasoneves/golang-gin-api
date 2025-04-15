@@ -12,5 +12,6 @@ func HandleRoutesRequests() {
 	r.POST("students", controllers.CreateNewStudent)
 	r.DELETE("/students/:id", controllers.DeleteStudent)
 	r.PATCH("/students/:id", controllers.EditStudent)
+	r.GET("/students/search/:cpf", controllers.SearchStudentByCPF)
 	r.Run(":5000")
 }
