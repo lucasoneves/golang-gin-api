@@ -15,10 +15,12 @@ func ShowAllStudents(c *gin.Context) {
 }
 
 func GetSingleStudent(c *gin.Context) {
-	name := c.Param("id")
-	c.JSON(200, gin.H{
-		"id": name,
-	})
+	var student models.Student
+	id := c.Params.ByName("id")
+
+	database.DB.First(&student, id)
+
+	c.JSON(200, student)
 }
 
 func CreateNewStudent(c *gin.Context) {
