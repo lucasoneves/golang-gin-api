@@ -1,10 +1,12 @@
 package main
 
 import (
+	"encoding/json"
 	"fmt"
 	"io"
 	"net/http"
 	"net/http/httptest"
+	"strconv"
 	"testing"
 
 	"github.com/gin-gonic/gin"
@@ -17,6 +19,7 @@ import (
 var ID int
 
 func SetupRouterTest() *gin.Engine {
+	gin.SetMode(gin.ReleaseMode)
 	routes := gin.Default()
 	return routes
 }
@@ -64,4 +67,39 @@ func TestGetAllStudents(t *testing.T) {
 
 	fmt.Println(response.Body)
 
+}
+
+func TestBuscaPorCPF(t *testing.T) {
+	database.ConectaComBancoDeDados()
+	CriaAlunoMock()
+	defer DeletaAlunoMock()
+	r := SetupRouterTest()
+	r.GET("/students/search/:cpf", controllers.SearchStudentByCPF)
+
+	req, _ := http.NewRequest("GET", "/students/search/12345678956", nil)
+	response := httptest.NewRecorder()
+
+	r.ServeHTTP(response, req)
+
+	assert.Equal(t, http.StatusOK, response.Code, "Should have the same status code")
+
+}
+
+func TestSearchStudentById(t *testing.T) {
+	database.ConectaComBancoDeDados()
+	CriaAlunoMock()
+	defer DeletaAlunoMock()
+	r := SetupRouterTest()
+	r.GET("/students/:id", controllers.GetSingleStudent)
+	pathDaBusca := "/students/" + strconv.Itoa(ID)
+	req, _ := http.NewRequest("GET", pathDaBusca, nil)
+
+	response := httptest.NewRecorder()
+	r.ServeHTTP(response, req)
+
+	var studentMock models.Student
+
+	json.Unmarshal(response.Body.Bytes(), &studentMock)
+
+	assert.Equal(t, "Nome do Aluno Teste", studentMock.Name)
 }
