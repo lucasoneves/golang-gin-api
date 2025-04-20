@@ -10,12 +10,26 @@ import (
 	"github.com/gin-gonic/gin"
 	"github.com/lucasoneves/api-go-gin/controllers"
 	"github.com/lucasoneves/api-go-gin/database"
+	"github.com/lucasoneves/api-go-gin/models"
 	"github.com/stretchr/testify/assert"
 )
+
+var ID int
 
 func SetupRouterTest() *gin.Engine {
 	routes := gin.Default()
 	return routes
+}
+
+func CriaAlunoMock() {
+	student := models.Student{Name: "Nome do Aluno Teste", CPF: "12345678956", Rg: "123456789"}
+	database.DB.Create(&student)
+	ID = int(student.ID)
+}
+
+func DeletaAlunoMock() {
+	var student models.Student
+	database.DB.Delete(&student, ID)
 }
 
 func TestStudentsRoute(t *testing.T) {
@@ -36,6 +50,8 @@ func TestStudentsRoute(t *testing.T) {
 
 func TestGetAllStudents(t *testing.T) {
 	database.ConectaComBancoDeDados()
+	CriaAlunoMock()
+	defer DeletaAlunoMock()
 	r := SetupRouterTest()
 	r.GET("/students", controllers.ShowAllStudents)
 
