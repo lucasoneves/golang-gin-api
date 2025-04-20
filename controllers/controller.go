@@ -8,6 +8,12 @@ import (
 	"github.com/lucasoneves/api-go-gin/models"
 )
 
+func Greeting(c *gin.Context) {
+	c.JSON(200, gin.H{
+		"message": "Hello World",
+	})
+}
+
 func ShowAllStudents(c *gin.Context) {
 	var students []models.Student
 	database.DB.Find(&students)

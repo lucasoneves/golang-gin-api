@@ -7,6 +7,7 @@ import (
 
 func HandleRoutesRequests() {
 	r := gin.Default()
+	r.GET("/greeting", controllers.Greeting)
 	r.GET("/students", controllers.ShowAllStudents)
 	r.GET("/students/:id", controllers.GetSingleStudent)
 	r.POST("students", controllers.CreateNewStudent)

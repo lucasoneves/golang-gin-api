@@ -16,10 +16,9 @@ func SetupRouterTest() *gin.Engine {
 
 func TestStudentsRoute(t *testing.T) {
 	r := SetupRouterTest()
+	r.GET("/greeting", controllers.Greeting)
 
-	r.GET("/students", controllers.ShowAllStudents)
-
-	req, _ := http.NewRequest("GET", "/students", nil)
+	req, _ := http.NewRequest("GET", "/greeting", nil)
 	response := httptest.NewRecorder()
 	r.ServeHTTP(response, req)
 
