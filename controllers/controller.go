@@ -115,3 +115,10 @@ func SearchStudentByCPF(c *gin.Context) {
 	c.JSON(http.StatusOK, student)
 	return
 }
+
+func ShowIndexPage(c *gin.Context) {
+	c.HTML(http.StatusOK, "index.html", gin.H{
+		"title": "Students Home Page",
+	})
+
+}
