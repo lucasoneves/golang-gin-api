@@ -103,3 +103,17 @@ func TestSearchStudentById(t *testing.T) {
 
 	assert.Equal(t, "Nome do Aluno Teste", studentMock.Name)
 }
+
+func TestDeleteStudent(t *testing.T) {
+	database.ConectaComBancoDeDados()
+	CriaAlunoMock()
+	r := SetupRouterTest()
+	r.DELETE("/students/:id", controllers.DeleteStudent)
+	pathDeBusca := "/students/" + strconv.Itoa(ID)
+	req, _ := http.NewRequest("DELETE", pathDeBusca, nil)
+	response := httptest.NewRecorder()
+
+	r.ServeHTTP(response, req)
+
+	assert.Equal(t, http.StatusOK, response.Code, "Should have the same status code")
+}
