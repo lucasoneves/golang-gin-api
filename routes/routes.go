@@ -8,6 +8,8 @@ import (
 func HandleRoutesRequests() {
 	r := gin.Default()
 	r.LoadHTMLGlob("templates/*")
+	r.Static("/assets", "./assets")
+
 	r.GET("/greeting", controllers.Greeting)
 	r.GET("/students", controllers.ShowAllStudents)
 	r.GET("/students/:id", controllers.GetSingleStudent)
@@ -17,5 +19,7 @@ func HandleRoutesRequests() {
 	r.GET("/students/search/:cpf", controllers.SearchStudentByCPF)
 
 	r.GET("/index", controllers.ShowIndexPage)
+	r.NoRoute(controllers.NotFoundRoute)
+
 	r.Run(":5000")
 }

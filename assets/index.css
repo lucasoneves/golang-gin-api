@@ -1,0 +1,54 @@
+@import url("https://fonts.googleapis.com/css?family=Alfa+Slab+One|Josefin+Slab");
+
+body {
+  background-color: #1d2936;
+  color: #f2f2f2;
+}
+
+h1 {
+  font-family: "Alfa Slab One", cursive;
+  margin-top: 6%;
+  text-align: center;
+  font-size: 70px;
+}
+
+ul,
+li {
+  font-family: "Josefin Slab", serif;
+  text-align: center;
+  font-size: 40px;
+  list-style: none;
+}
+
+ul {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  justify-content: space-between;
+  padding: 12px;
+}
+
+ul h2 {
+  flex-basis: 100%;
+}
+
+.list-item {
+  background-color: #f2f2f2;
+  padding: 30px 12px;
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  flex: 1;
+  justify-content: center;
+  box-shadow: 0 0 10px #777;
+  color: #1d2936;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.list-item-details {
+  font-size: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
